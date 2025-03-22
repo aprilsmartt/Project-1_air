@@ -1,4 +1,0 @@
-const express = require('express');          // Import Express
-const router = express.Router();             // Create a router instance
-
-module.exports = router;                     // Export the router for use in other files

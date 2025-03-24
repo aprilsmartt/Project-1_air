@@ -4,10 +4,33 @@ const bcrypt = require('bcryptjs');              // For password hashing
 const { setTokenCookie, requireAuth } = require('../../utils/auth');  // Auth utilities
 const { User } = require('../../db/models');     // User model
 
+const { check } = require('express-validator');
+const { handleValidationErrors } = require('../../utils/validation');
+
 const router = express.Router();             // Create a router instance
 
-// Sign up
-router.post('/', async (req, res) => {           // POST /api/users endpoint
+const validateSignup = [
+    check('email')
+      .exists({ checkFalsy: true })                      // Email must exist and not be falsy
+      .isEmail()                                         // Must be valid email format
+      .withMessage('Please provide a valid email.'),
+    check('username')
+      .exists({ checkFalsy: true })                      // Username must exist and not be falsy
+      .isLength({ min: 4 })                              // Must be at least 4 characters
+      .withMessage('Please provide a username with at least 4 characters.'),
+    check('username')
+      .not()                                             // Username must NOT...
+      .isEmail()                                         // ...be an email
+      .withMessage('Username cannot be an email.'),
+    check('password')
+      .exists({ checkFalsy: true })                      // Password must exist and not be falsy
+      .isLength({ min: 6 })                              // Must be at least 6 characters
+      .withMessage('Password must be 6 characters or more.'),
+    handleValidationErrors                               // Process validation results
+  ];  
+
+// Sign up // !added validateSignup to router.post
+router.post('/', validateSignup, async (req, res) => {           // POST /api/users endpoint
     const { email, password, username } = req.body;  // Extract user data
     
     // Hash the password

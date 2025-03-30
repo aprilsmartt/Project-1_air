@@ -1,5 +1,5 @@
 'use strict';
-/** @type {import('sequelize-cli').Migration} */
+// /** @type {import('sequelize-cli').Migration} */
 
 let options = {};
 if (process.env.NODE_ENV === "production") {
@@ -37,7 +37,7 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal("DATE_TIMESTAMP")
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP")
       }
     }, options);
   },

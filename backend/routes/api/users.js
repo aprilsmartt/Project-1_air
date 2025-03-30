@@ -31,19 +31,22 @@ const validateSignup = [
 
 // Sign up // !added validateSignup to router.post
 router.post('/', validateSignup, async (req, res) => {           // POST /api/users endpoint
-    const { email, password, username } = req.body;  // Extract user data
+  //! added firstName, lastName throught
+    const { email, password, username, firstName, lastName } = req.body;  // Extract user data
     
     // Hash the password
     const hashedPassword = bcrypt.hashSync(password);  // Create secure hash
     
     // Create a new user
-    const user = await User.create({ email, username, hashedPassword });  // Save to DB
+    const user = await User.create({ email, username, hashedPassword, firstName, lastName });  // Save to DB
   
     // Create a safe user object (without hashedPassword)
     const safeUser = {
       id: user.id,
       email: user.email,
       username: user.username,
+      firstName: user.firstName,
+      lastName: user.lastName
     };
   
     // Set the JWT cookie

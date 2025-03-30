@@ -45,10 +45,13 @@ router.post('/', validateLogin, async (req, res, next) => {   // POST /api/sessi
     }
 
     // Create a safe user object (without hashedPassword)
+    //! added firstName and lastName
     const safeUser = {
         id: user.id,
         email: user.email,
         username: user.username,
+        firstName: user.firstName,
+        lastName: user.lastName
     };
 
     // Set the JWT cookie
@@ -72,9 +75,12 @@ router.get('/', (req, res) => {                 // GET /api/session endpoint
     const { user } = req;                         // Get user from request object
     if (user) {
       const safeUser = {                          // Create safe user object
+        //! added firstName and lastName
         id: user.id,
         email: user.email,
         username: user.username,
+        firstName: user.firstName,
+        lastName: user.lastName
       };
       return res.json({
         user: safeUser                           // Return user data if logged in

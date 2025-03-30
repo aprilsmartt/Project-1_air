@@ -10,7 +10,17 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      User.hasMany(models.Spot, {
+        foreignKey: "ownerId", // the foreign key in Spot that links to User
+        as: "spots",  // alias for the relationship
+      });
+
+      //! Optional: One-to-many relationship between User and SpotImage
+      //! This is an indirect relationship through Spot, BECAUSE the User owns a Spot, AND each Spot has many SpotImages.
+      User.hasMany(models.SpotImage, {
+        foreignKey: "spotId",  // the foreign key in SpotImage that links to Spot
+        as: "spotImages",  // alias for the relationship
+      });
     }
   }
   User.init({
@@ -42,9 +52,24 @@ module.exports = (sequelize, DataTypes) => {
         len: [60, 60],                       // bcrypt hashes are always 60 characters
       },
     },
+    //! add firstName and lastName attributes
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        len: [1, 100]
+      },
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        len: [1, 100]
+      },
+    },
   }, {
     sequelize,
-    modelName: 'User',
+    modelName: "User",
     defaultScope: {
       attributes: {
         exclude: ["hashedPassword", "email", "createdAt", "updatedAt"],

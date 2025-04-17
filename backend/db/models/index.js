@@ -16,6 +16,13 @@ if (config.use_env_variable) {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
+// ✅ Add schema hook for production (Postgres)
+if (process.env.NODE_ENV === 'production') {
+  sequelize.addHook('beforeDefine', (attributes, options) => {
+    options.schema = process.env.SCHEMA;
+  });
+}
+
 // ✅ ADD THIS: automatically apply schema from .env to all models
 sequelize.addHook('beforeDefine', (attributes, options) => {
   options.schema = process.env.SCHEMA;

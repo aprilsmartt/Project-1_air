@@ -16,6 +16,11 @@ if (config.use_env_variable) {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
+// ✅ ADD THIS: automatically apply schema from .env to all models
+sequelize.addHook('beforeDefine', (attributes, options) => {
+  options.schema = process.env.SCHEMA;
+});
+
 fs
   .readdirSync(__dirname)
   .filter(file => {

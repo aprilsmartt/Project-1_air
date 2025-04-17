@@ -19,12 +19,15 @@ module.exports = {
       ownerId: {
         type: Sequelize.INTEGER,                // Foreign key for the owner of the spot
         allowNull: false,                       // Owner ID is required
-        unique: true                            // Owner ID must be unique for each spot
+        references: {
+          model: "Users",
+          key: "id"
+        },
+        onDelete: "CASCADE"
       },
       address: {
         type: Sequelize.STRING(100),            // Address with max length of characters
         allowNull: false,                       // Address is required
-        unique: true                            // Address must be unique for each spot
       },
       city: {
         type: Sequelize.STRING(100),            // City with max length of characters
@@ -68,7 +71,7 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP")
       }
-    }, options);
+    }, options);  // Use options for schema in production
   },
 
   // async down(queryInterface, Sequelize) {
@@ -78,6 +81,6 @@ module.exports = {
   //! Use Direct Promise Return instead of await
   async down(queryInterface, Sequelize) {
     options.tableName = "Spots";
-    return queryInterface.dropTable(options);  // for undoing the migration
+    return queryInterface.dropTable("Spots", options);  // for undoing the migration
   }
 };

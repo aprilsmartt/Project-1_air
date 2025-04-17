@@ -15,12 +15,23 @@ module.exports = (sequelize, DataTypes) => {
         as: "spots",  // alias for the relationship
       });
 
-      //! Optional: One-to-many relationship between User and SpotImage
-      //! This is an indirect relationship through Spot, BECAUSE the User owns a Spot, AND each Spot has many SpotImages.
-      User.hasMany(models.SpotImage, {
-        foreignKey: "spotId",  // the foreign key in SpotImage that links to Spot
-        as: "spotImages",  // alias for the relationship
+      User.hasMany(models.Review, {
+        foreignKey: 'userId', // The foreign key in Review that links to User
+        as: 'reviews', // Alias for the association (plural)
       });
+      
+      User.hasMany(models.Booking, {
+        foreignKey: 'userId',
+        as: 'bookings'
+      });
+
+
+      // //! Optional: One-to-many relationship between User and SpotImage
+      // //! This is an indirect relationship through Spot, BECAUSE the User owns a Spot, AND each Spot has many SpotImages.
+      // User.hasMany(models.SpotImage, {
+      //   foreignKey: "spotId",  // the foreign key in SpotImage that links to Spot
+      //   as: "spotImages",  // alias for the relationship
+      // });
     }
   }
   User.init({

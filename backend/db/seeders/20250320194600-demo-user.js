@@ -3,7 +3,7 @@
 const { User } = require ("../models");
 const bcrypt = require("bcryptjs")  //! Import bcrypt for password hashing
 
-/** @type {import('sequelize-cli').Migration} */
+// /** @type {import('sequelize-cli').Migration} */
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
@@ -49,9 +49,16 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
     options.tableName = 'Users';
-    const Op = Sequelize.Op;
-    return queryInterface.bulkDelete(options, {
+    const Op = Sequelize.Op; //! shorthand way (destructuring) === const { Op } = Sequelize;
+
+    //! 3 Arguments used: bulkDelete(tableName, whereCondition, options)
+    return queryInterface.bulkDelete("Users", {
       username: { [Op.in]: ['Demo-lition', 'FakeUser1', 'FakeUser2'] }  // Delete specific users
-    }, {});
+    }, options);
+
+    // //! Will delete all records from table (deletes all rows)
+    // options.tableName = "Users";  // Keep options for schema support
+    // return queryInterface.bulkDelete("Users", {}, options);  // Returning the promise
   }
 };
+

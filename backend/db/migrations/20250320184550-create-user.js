@@ -49,6 +49,6 @@ module.exports = {
   //! Use Direct Promise Return instead of await
   async down(queryInterface, Sequelize) {
     options.tableName = "Users";
-    return queryInterface.dropTable(options);  // for undoing the migration
+    return queryInterface.dropTable("Users", options);  // for undoing the migration
   }
 };

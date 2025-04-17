@@ -3,7 +3,7 @@ const sessionRouter = require('./session.js');         // Import session router
 const usersRouter = require('./users.js');             // Import users router
 const { restoreUser } = require("../../utils/auth.js");  // Import auth middleware
 
-//! Connect restoreUser middleware to the API router
+// Connect restoreUser middleware to the API router
 // If current user session is valid, set req.user to the user in the database
 // If current user session is not valid, set req.user to null
 router.use(restoreUser);
@@ -12,13 +12,12 @@ router.use(restoreUser);
 router.use('/session', sessionRouter);                 // Mount session router at /api/session
 router.use('/users', usersRouter);                     // Mount users router at /api/users
 
+//! Test POST route
+router.post('/test', (req, res) => {                   // Test route (can be removed later)
+  res.json({ requestBody: req.body });
+});
 
 
-// ================================ BEGINNING OF TESTING CODE ================================
-// //! Test POST route
-// router.post('/test', (req, res) => {                   // Test route (can be removed later)
-//   res.json({ requestBody: req.body });
-// });
 
 // //! Test POST route
 // // Test route to check if API router is working
@@ -61,22 +60,6 @@ router.use('/users', usersRouter);                     // Mount users router at 
 //     return res.json(req.user);                    // Return the authenticated user
 //   }
 // );
-
-// ================================ END OF TESTING CODE ================================
-
   
 
 module.exports = router;                        // Export the router for use in other files
-
-
-
-//! FETCH CODE TO TEST API ROUTER
-// fetch('/api/test', {
-//     method: "POST",                               // HTTP method
-//     headers: {
-//       "Content-Type": "application/json",         // Specify content type as JSON
-//       "XSRF-TOKEN": `<value of XSRF-TOKEN cookie>`  // Include CSRF token
-//     },
-//     body: JSON.stringify({ hello: 'world' })      // Convert JS object to JSON string
-//   }).then(res => res.json()).then(data => console.log(data));
-  

@@ -1,6 +1,11 @@
 'use strict';
 
-/** @type {import('sequelize-cli').Migration} */
+// /** @type {import('sequelize-cli').Migration} */
+
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;     //!Define schema for production
+}
 
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -16,8 +21,6 @@ module.exports = {
         name: 'The Sunny Spot',
         description: 'Great location with activities suitable for all ages. A cozy spot near great restaurants and all your favorite attractions.',
         price: 300.00,
-        createdAt: new Date(),
-        updatedAt: new Date()
       },
       {
         ownerId: 2,
@@ -30,8 +33,6 @@ module.exports = {
         name: 'Beach Paradise',
         description: 'A beachfront escape.',
         price: 175.00,
-        createdAt: new Date(),
-        updatedAt: new Date()
       },
       {
         ownerId: 3,
@@ -44,13 +45,12 @@ module.exports = {
         name: 'Havana Bliss',
         description: 'Explore the beautiful and colorful culture and architecture. Great shops,restaurants, and nightlife.',
         price: 350.00,
-        createdAt: new Date(),
-        updatedAt: new Date()
       }
     ]);
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('Spots', null, {});
+    options.tableName = "Spots";  // Keep options for schema support
+    return queryInterface.bulkDelete("Spots", {}, options);  // Returning the promise
   }
 };

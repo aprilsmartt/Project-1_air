@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
         as: "spot", //! Alias for Spot association,
         unique: 'unique_review_per_spot' //! Prevent multiple reviews for the same spot
       });
+      
       Review.belongsTo(models.User, { 
         foreignKey: "userId", 
         as: "user", //! Alias for User association,

@@ -14,12 +14,22 @@ module.exports = (sequelize, DataTypes) => {
       Spot.belongsTo(models.User, {
         foreignKey: "ownerId",
         as: "owner" //! Alias for owner
-      }),
+      });
 
-        Spot.hasMany(models.SpotImage, {
-          foreignKey: "spotId",  //! The foreign key in SpotImage
-          as: "spotImages"  //! Alias for association (lowercase)
-        })
+      Spot.hasMany(models.Booking, {
+        foreignKey: "spotId",
+        as: "bookings"
+      });
+
+      Spot.hasMany(models.Review, {
+        foreignKey: "spotId",
+        as: "reviews"
+      });
+
+      Spot.hasMany(models.SpotImage, {
+        foreignKey: "spotId",  //! The foreign key in SpotImage
+        as: "spotImages"  //! Alias for association (lowercase)
+      })
     }
   }
   Spot.init(
@@ -80,8 +90,8 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           isDecimal: true,
-          min: -180, 
-          max: 180, 
+          min: -180,
+          max: 180,
         },
       },
       name: {

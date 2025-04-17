@@ -1,5 +1,14 @@
 'use strict';
-/** @type {import('sequelize-cli').Migration} */
+
+const { User } = require ("../models");
+
+// /** @type {import('sequelize-cli').Migration} */
+
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;     //!Define schema for production
+}
+
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('SpotImages', {
@@ -12,6 +21,11 @@ module.exports = {
       spotId: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        references: {
+          model: "Spots",
+          key: "id"
+        },
+        onDelete: "CASCADE"
       },
       url: {
         type: Sequelize.STRING(255),
@@ -31,9 +45,11 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP")
       }
-    });
+    }, options);  // Use options for schema in production
   },
+  //! Use Direct Promise Return instead of await
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('SpotImages');
+    options.tableName = "SpotImages";
+    return queryInterface.dropTable("SpotImages", options);  // for undoing the migration
   }
 };

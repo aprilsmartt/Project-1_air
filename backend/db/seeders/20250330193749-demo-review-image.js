@@ -8,33 +8,48 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
+    // Reset the auto-increment counter to 1 (SQLite specific)
+    if (queryInterface.sequelize.getDialect() === 'sqlite') {
+    await queryInterface.sequelize.query('DELETE FROM sqlite_sequence WHERE name="ReviewImages"');
+    }
+    
     await queryInterface.bulkInsert('ReviewImages', [
       {
         reviewId: 1,
         url: 'https://example.com/review-image1.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         reviewId: 1,
         url: 'https://example.com/review-image2.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         reviewId: 2,
         url: 'https://example.com/review-image3.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         reviewId: 3,
         url: 'https://example.com/review-image4.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         reviewId: 3,
         url: 'https://example.com/review-image5.jpg',
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
     ]);
   },
 
   async down(queryInterface, Sequelize) {
-    options.tableName = "ReviewImage";  // Keep options for schema support
-    return queryInterface.bulkDelete("ReviewImage", {}, options);  // Returning the promise
+    options.tableName = "ReviewImages";  // Keep options for schema support
+    return queryInterface.bulkDelete("ReviewImages", {}, options);  // Returning the promise
   }
 };

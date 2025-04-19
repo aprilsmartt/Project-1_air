@@ -37,10 +37,13 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: true,
         len: [12, 255],
+        isUrl: true,  // Ensures it's a valid URL
       },
     },
     preview: {
-      type: DataTypes.BOOLEAN
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,  // Optional default    
     }
   }, {
     sequelize,

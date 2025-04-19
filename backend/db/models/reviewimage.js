@@ -11,14 +11,21 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      // SpotImage.belongsTo(models.Review, {
+      //   foreignKey: "reviewId", // foreign key in ReviewImage
+      //   as: "review"  // alias for the association
+      // });
+      
       ReviewImage.belongsTo(models.Review, {
         foreignKey: "reviewId",  //! The foreign key in ReviewImage
         as: "review"  //! Alias for association (lowercase)
       });
-      // //! Optional: ReviewImage can belong to a User indirectly via Spot
-      // SpotImage.belongsTo(models.User, {
-      //   foreignKey: "ownerId",  // Foreign key in ReviewImage, through Spot
-      //   as: "owner",  // Alias for the relationship (singular)
+      
+      //! Optional: ReviewImage can belong to a User indirectly via Spot
+      // If needed, this can be defined through the Spot -> Review -> ReviewImage relationship:
+      // ReviewImage.belongsTo(models.User, {
+      //   foreignKey: "ownerId", // foreign key for User
+      //   as: "owner",  // Alias for indirect ownership
       // });
     }
   }

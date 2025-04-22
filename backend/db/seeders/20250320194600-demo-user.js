@@ -22,6 +22,8 @@ module.exports = {
         email: 'demo@user.io',
         username: 'Demo-lition',
         hashedPassword: bcrypt.hashSync('password'),  // Hash password on the fly
+        firstName: "Demo",
+        lastName: "Weathers",
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -29,6 +31,8 @@ module.exports = {
         email: 'user1@user.io',
         username: 'FakeUser1',
         hashedPassword: bcrypt.hashSync('password2'),
+        firstName: "Sam",
+        lastName: "Jones",
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -36,6 +40,8 @@ module.exports = {
         email: 'user2@user.io',
         username: 'FakeUser2',
         hashedPassword: bcrypt.hashSync('password3'),
+        firstName: "Jane",
+        lastName: "Thompson",
         createdAt: new Date(),
         updatedAt: new Date()
       }

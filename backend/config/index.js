@@ -1,3 +1,5 @@
+require('dotenv').config(); // Add this at the top of your config file
+
 module.exports = {
   environment: process.env.NODE_ENV || 'development',  // Default to development if not specified
   port: process.env.PORT || 8000,                      // Server port, fallback to 8000

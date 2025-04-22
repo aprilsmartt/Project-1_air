@@ -9,6 +9,11 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   async up(queryInterface, Sequelize) {
+    // Reset the auto-increment counter to 1 (SQLite specific)
+    if (queryInterface.sequelize.getDialect() === 'sqlite') {
+    await queryInterface.sequelize.query('DELETE FROM sqlite_sequence WHERE name="Spots"');
+    }
+
     await queryInterface.bulkInsert('Spots', [
       {
         ownerId: 1,
@@ -21,6 +26,8 @@ module.exports = {
         name: 'The Sunny Spot',
         description: 'Great location with activities suitable for all ages. A cozy spot near great restaurants and all your favorite attractions.',
         price: 300.00,
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         ownerId: 2,
@@ -33,6 +40,8 @@ module.exports = {
         name: 'Beach Paradise',
         description: 'A beachfront escape.',
         price: 175.00,
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         ownerId: 3,
@@ -45,6 +54,8 @@ module.exports = {
         name: 'Havana Bliss',
         description: 'Explore the beautiful and colorful culture and architecture. Great shops,restaurants, and nightlife.',
         price: 350.00,
+        createdAt: new Date(),
+        updatedAt: new Date()
       }
     ]);
   },

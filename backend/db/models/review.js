@@ -22,6 +22,11 @@ module.exports = (sequelize, DataTypes) => {
         as: "user", //! Alias for User association,
         unique: 'unique_review_per_user' //! Prevent multiple reviews from the same user
       });
+
+      Review.hasMany(models.ReviewImage, {
+        foreignKey: "reviewId",
+        as: "reviewImages" // or whatever alias you want
+      });      
     }
   }
   Review.init({

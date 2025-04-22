@@ -12,30 +12,32 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
+    // Reset the auto-increment counter to 1 (SQLite specific)
+    if (queryInterface.sequelize.getDialect() === 'sqlite') {
+    await queryInterface.sequelize.query('DELETE FROM sqlite_sequence WHERE name="Users"');
+    }
+
     await User.bulkCreate([                // Create multiple users at once
       {
         email: 'demo@user.io',
         username: 'Demo-lition',
-        hashedPassword: bcrypt.hashSync('password')  // Hash password on the fly
+        hashedPassword: bcrypt.hashSync('password'),  // Hash password on the fly
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         email: 'user1@user.io',
         username: 'FakeUser1',
-        hashedPassword: bcrypt.hashSync('password2')
+        hashedPassword: bcrypt.hashSync('password2'),
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         email: 'user2@user.io',
         username: 'FakeUser2',
-        hashedPassword: bcrypt.hashSync('password3')
+        hashedPassword: bcrypt.hashSync('password3'),
+        createdAt: new Date(),
+        updatedAt: new Date()
       }
     ], { validate: true });                // Run model validations on seed data
 

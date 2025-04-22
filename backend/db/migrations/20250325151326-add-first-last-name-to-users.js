@@ -17,12 +17,12 @@ module.exports = {
      */
     await queryInterface.addColumn('Users', 'firstName', {    // Add firstName column
       type: Sequelize.STRING,
-      allowNull: true                                       // Make it optional
+      allowNull: false                                       // Make it optional
     }, options);
     
     await queryInterface.addColumn('Users', 'lastName', {     // Add lastName column
       type: Sequelize.STRING,
-      allowNull: true                                       // Make it optional
+      allowNull: false                                       // Make it optional
     }, options);
   },
 
@@ -35,8 +35,8 @@ module.exports = {
      */
     // ! If this format doesn't migrate properly, then use the code below
     options.tableName = "Users"; 
-    await queryInterface.removeColumn(options, 'firstName');   // Remove in down migration
-    await queryInterface.removeColumn(options, 'lastName');    // Remove in down migration
+    await queryInterface.removeColumn('Users', 'firstName', options);   // Remove in down migration
+    await queryInterface.removeColumn('Users', 'lastName', options);    // Remove in down migration
 
     // // ! Note: when using this code, the User table needs to be referred to first
     // await queryInterface.removeColumn("Users", 'firstName', options);   // Remove in down migration

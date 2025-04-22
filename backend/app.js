@@ -36,6 +36,11 @@ app.use(
   })
 );
 
+// Enable CORS (Cross-Origin Resource Sharing) only in development
+if (!isProduction) {
+  app.use(cors());
+}
+
 // Set the _csrf token and create req.csrfToken method
 app.use(
   csurf({
@@ -47,8 +52,21 @@ app.use(
   })
 );
 
+//! CSRF restoration route
+app.get('/csrf/restore', (req, res) => {
+  res.cookie('XSRF-TOKEN', req.csrfToken());
+  res.status(200).json({});
+});
+
+// Test code, move-to/place above app.use(routes)
+// app.get('/ping', (req, res) => {
+//   res.send('pong');
+// });
+
 // Connect routes
 const routes = require('./routes');                 // Import routes
+
+
 app.use(routes);
 
 //! ================   ERROR HANDLING MIDDLEWARE ===============

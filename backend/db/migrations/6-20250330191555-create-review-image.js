@@ -1,5 +1,6 @@
 'use strict';
-const { User, Spot } = require("../models");
+
+const { User } = require("../models");
 const bcrypt = require("bcryptjs")  //! Import bcrypt for password hashing
 
 // /** @type {import('sequelize-cli').Migration} */
@@ -11,57 +12,41 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Reviews', {
+    await queryInterface.createTable('ReviewImages', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      spotId: {
+      reviewId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "Spots",
+          model: "Reviews",
           key: "id"
         },
-        onDelete: "CASCADE"
+        onDelete: "CASCADE",
       },
-      userId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: "Users",
-          key: "id"
-        },
-        onDelete: "CASCADE"
-      },
-      review: {
+      url: {
         type: Sequelize.STRING(255),
-        allowNull: false
-      },
-      stars: {
-        type: Sequelize.INTEGER(25),
-        allowNull: false
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP")
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP")
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
       }
     }, options);  // Use options for schema in production
   },
-
   //! Use Direct Promise Return instead of await
   async down(queryInterface, Sequelize) {
-    options.tableName = "Reviews";
-    return queryInterface.dropTable("Reviews", options);  // for undoing the migration
+    options.tableName = "ReviewImages";
+    return queryInterface.dropTable(options);  // for undoing the migration
   }
 };
-
-

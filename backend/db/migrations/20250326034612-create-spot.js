@@ -6,10 +6,12 @@ let options = {};
 if (process.env.NODE_ENV === "production") {
   options.schema = process.env.SCHEMA;  //! define your schema in options object
 }
+options.tableName = "Spots"; //! options.tablename can go here or inside module.exports object
+
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Spots', {
+    await queryInterface.createTable(options, 'Spots', {
       id: {
         allowNull: false,                       // id cannot be null
         autoIncrement: true,                    // auto-increment the id
@@ -80,7 +82,7 @@ module.exports = {
 
   //! Use Direct Promise Return instead of await
   async down(queryInterface, Sequelize) {
-    options.tableName = "Spots";
-    return queryInterface.dropTable("Spots", options);  // for undoing the migration
+    // options.tableName = "Spots";
+    return queryInterface.dropTable(options, "Spots");  // for undoing the migration
   }
 };

@@ -2,16 +2,18 @@
 
 const { User } = require ("../models");
 
-// /** @type {import('sequelize-cli').Migration} */
+/** @type {import('sequelize-cli').Migration} */
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;     //!Define schema for production
 }
+options.tableName = "SpotImages"; //! options.tablename can go here or inside module.exports object
+
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('SpotImages', {
+    await queryInterface.createTable(options, 'SpotImages', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -49,7 +51,7 @@ module.exports = {
   },
   //! Use Direct Promise Return instead of await
   async down(queryInterface, Sequelize) {
-    options.tableName = "SpotImages";
-    return queryInterface.dropTable("SpotImages", options);  // for undoing the migration
+    // options.tableName = "SpotImages";
+    return queryInterface.dropTable(options, "SpotImages");  // for undoing the migration
   }
 };

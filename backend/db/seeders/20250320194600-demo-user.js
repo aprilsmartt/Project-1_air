@@ -9,6 +9,7 @@ let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;     //!Define schema for production
 }
+// options.tableName = "Users"; //! options.tablename can go here or inside module.exports object
 
 module.exports = {
   async up (queryInterface, Sequelize) {
@@ -50,17 +51,12 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
-    options.tableName = 'Users';
+    options.tableName = 'Users'; //! Optional: can place @ top level instead 
+
     const Op = Sequelize.Op; //! shorthand way (destructuring) === const { Op } = Sequelize;
 
     //! 3 Arguments used: bulkDelete(tableName, whereCondition, options)
-    return queryInterface.bulkDelete("Users", {
+    return queryInterface.bulkDelete(options, {
       username: { [Op.in]: ['Demo-lition', 'FakeUser1', 'FakeUser2'] }  // Delete specific users
     }, options);
 

@@ -17,12 +17,12 @@ module.exports = {
       await queryInterface.addColumn(options, 'firstName', {    // Add firstName column
         type: Sequelize.STRING,
         allowNull: false                                       // Make it optional
-      }, options);
+      });
     
       await queryInterface.addColumn(options, 'lastName', {     // Add lastName column
         type: Sequelize.STRING,
         allowNull: false                                       // Make it optional
-      }, options);
+      });
   },
 
   async down(queryInterface, Sequelize) {

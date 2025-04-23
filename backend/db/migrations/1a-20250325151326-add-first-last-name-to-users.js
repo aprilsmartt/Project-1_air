@@ -2,7 +2,9 @@
 
 /** @type {import('sequelize-cli').Migration} */  //! Need this line of code
 
-let options = {};
+let options = {
+  tableName: 'Users'  // this is the key: explicitly set the tableName here
+};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
@@ -11,7 +13,7 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    options.tableName = "Users"; //! can go after options condtional statement OR here.
+    // options.tableName = "Users"; //! can go after options condtional statement OR here.
 
     //! Note: options should be the first argument throughout
       await queryInterface.addColumn(options, 'firstName', {    // Add firstName column

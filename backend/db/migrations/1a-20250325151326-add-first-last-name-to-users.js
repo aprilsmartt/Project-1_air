@@ -15,7 +15,7 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     // options.tableName = "Users"; //! can go after options condtional statement OR here.
 
-    //! Note: options should be the first argument throughout
+    //! Note: options should be the first argument throughout 
       await queryInterface.addColumn(options, 'firstName', {    // Add firstName column
         type: Sequelize.STRING,
         allowNull: false                                       // Make it optional

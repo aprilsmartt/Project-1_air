@@ -1,19 +1,17 @@
 'use strict';
+const { User, Spot } = require("../models");
+const bcrypt = require("bcryptjs")  //! Import bcrypt for password hashing
 
-const { User } = require ("../models");
-
-/** @type {import('sequelize-cli').Migration} */
+// /** @type {import('sequelize-cli').Migration} */
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;     //!Define schema for production
 }
-options.tableName = "SpotImages"; //! options.tablename can go here or inside module.exports object
-
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable(options, 'SpotImages', {
+    await queryInterface.createTable('Reviews', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -29,13 +27,22 @@ module.exports = {
         },
         onDelete: "CASCADE"
       },
-      url: {
-        type: Sequelize.STRING(255),
+      userId: {
+        type: Sequelize.INTEGER,
         allowNull: false,
+        references: {
+          model: "Users",
+          key: "id"
+        },
+        onDelete: "CASCADE"
       },
-      preview: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
+      review: {
+        type: Sequelize.STRING(255),
+        allowNull: false
+      },
+      stars: {
+        type: Sequelize.INTEGER,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
@@ -49,9 +56,12 @@ module.exports = {
       }
     }, options);  // Use options for schema in production
   },
+
   //! Use Direct Promise Return instead of await
   async down(queryInterface, Sequelize) {
-    // options.tableName = "SpotImages";
-    return queryInterface.dropTable(options, "SpotImages");  // for undoing the migration
+    options.tableName = "Reviews";
+    return queryInterface.dropTable(options);  // for undoing the migration
   }
 };
+
+

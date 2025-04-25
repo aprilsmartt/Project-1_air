@@ -1,20 +1,23 @@
 'use strict';
 
-// /** @type {import('sequelize-cli').Migration} */
+const { Review } = require("../models");
 
 let options = {};
 if (process.env.NODE_ENV === "production") {
   options.schema = process.env.SCHEMA;  //! define your schema in options object
 }
 
+// Type annotation for better IntelliSense in VS Code
+/** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
     // Reset the auto-increment counter to 1 (SQLite specific)
     if (queryInterface.sequelize.getDialect() === 'sqlite') {
-    await queryInterface.sequelize.query('DELETE FROM sqlite_sequence WHERE name="Reviews"');
+      await queryInterface.sequelize.query('DELETE FROM sqlite_sequence WHERE name="Reviews"');
     }
 
-    await queryInterface.bulkInsert('Reviews', [
+    // await queryInterface.bulkInsert('Reviews', [
+    await Review.bulkCreate([                // Create multiple reviews at once
       {
         spotId: 1,
         userId: 1,

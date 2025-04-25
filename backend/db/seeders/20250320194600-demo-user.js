@@ -11,7 +11,6 @@ if (process.env.NODE_ENV === 'production') {
 
 // Type annotation for better IntelliSense in VS Code
 /** @type {import('sequelize-cli').Migration} */
-
 module.exports = {
   async up(queryInterface, Sequelize) {
     // Reset the auto-increment counter to 1 (SQLite specific)

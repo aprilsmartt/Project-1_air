@@ -20,7 +20,7 @@ module.exports = {
     }
 
     // await User.bulkCreate([                // Create multiple users at once
-    await queryInterface.bulkInsert('Users', [
+    await queryInterface.bulkInsert("Users", [
       {
         email: 'demo@user.io',
         username: 'Demo-lition',

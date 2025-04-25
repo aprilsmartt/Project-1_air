@@ -1,7 +1,7 @@
 'use strict';
 
 const { User } = require("../models");
-const bcrypt = require("bcryptjs")  //! Import bcrypt for password hashing
+const bcrypt = require("bcryptjs")  //! Import bcrypt for password hashing 
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {

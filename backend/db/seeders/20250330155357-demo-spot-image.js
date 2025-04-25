@@ -1,6 +1,6 @@
 'use strict';
 
-const { SpotImages } = require ("../models");
+const { SpotImage } = require ("../models");
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
@@ -17,7 +17,7 @@ module.exports = {
     }
 
     // await queryInterface.bulkInsert('SpotImages', [
-    await SpotImages.bulkCreate([                // Create multiple spot-images at once
+    await SpotImage.bulkCreate([                // Create multiple spot-images at once
       {
         spotId: 1,  // First spot
         url: 'https://example.com/images/spot1_image1.jpg',

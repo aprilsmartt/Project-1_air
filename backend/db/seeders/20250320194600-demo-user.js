@@ -1,9 +1,7 @@
 'use strict';
 
-const { User } = require ("../models");
+const { User } = require("../models");
 const bcrypt = require("bcryptjs")  //! Import bcrypt for password hashing
-
-// /** @type {import('sequelize-cli').Migration} */
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
@@ -11,14 +9,18 @@ if (process.env.NODE_ENV === 'production') {
 }
 // options.tableName = "Users"; //! options.tablename can go here or inside module.exports object
 
+// Type annotation for better IntelliSense in VS Code
+/** @type {import('sequelize-cli').Migration} */
+
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     // Reset the auto-increment counter to 1 (SQLite specific)
     if (queryInterface.sequelize.getDialect() === 'sqlite') {
-    await queryInterface.sequelize.query('DELETE FROM sqlite_sequence WHERE name="Users"');
+      await queryInterface.sequelize.query('DELETE FROM sqlite_sequence WHERE name="Users"');
     }
 
-    await User.bulkCreate([                // Create multiple users at once
+    // await User.bulkCreate([                // Create multiple users at once
+    await queryInterface.bulkInsert('Users', [
       {
         email: 'demo@user.io',
         username: 'Demo-lition',
@@ -50,7 +52,7 @@ module.exports = {
 
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     options.tableName = 'Users'; //! Optional: can place @ top level instead 
 
     const Op = Sequelize.Op; //! shorthand way (destructuring) === const { Op } = Sequelize;

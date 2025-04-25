@@ -1,20 +1,23 @@
 'use strict';
 
-// /** @type {import('sequelize-cli').Migration} */
+const { SpotImages } = require ("../models");
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;     //!Define schema for production
 }
 
+// Type annotation for better IntelliSense in VS Code
+/** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     // Reset the auto-increment counter to 1 (SQLite specific)
     if (queryInterface.sequelize.getDialect() === 'sqlite') {
-    await queryInterface.sequelize.query('DELETE FROM sqlite_sequence WHERE name="SpotImages"');
+      await queryInterface.sequelize.query('DELETE FROM sqlite_sequence WHERE name="SpotImages"');
     }
 
-    await queryInterface.bulkInsert('SpotImages', [
+    // await queryInterface.bulkInsert('SpotImages', [
+    await SpotImages.bulkCreate([                // Create multiple spot-images at once
       {
         spotId: 1,  // First spot
         url: 'https://example.com/images/spot1_image1.jpg',

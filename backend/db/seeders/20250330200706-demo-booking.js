@@ -1,20 +1,23 @@
 'use strict';
 
-// /** @type {import('sequelize-cli').Migration} */
+const { Booking } = require("../models");
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;     //!Define schema for production
 }
 
+// /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
     // Reset the auto-increment counter to 1 (SQLite specific)
     if (queryInterface.sequelize.getDialect() === 'sqlite') {
-    await queryInterface.sequelize.query('DELETE FROM sqlite_sequence WHERE name="Bookings"');
+      await queryInterface.sequelize.query('DELETE FROM sqlite_sequence WHERE name="Bookings"');
     }
 
-    await queryInterface.bulkInsert('Bookings', [
+    // await queryInterface.bulkInsert('Bookings', [
+    await Booking.bulkCreate([
+
       {
         userId: 1,
         spotId: 1,

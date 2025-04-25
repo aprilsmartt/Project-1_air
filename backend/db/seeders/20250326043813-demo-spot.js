@@ -7,8 +7,8 @@ if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;     //!Define schema for production
 }
 
+// Type annotation for better IntelliSense in VS Code
 /** @type {import('sequelize-cli').Migration} */
-
 module.exports = {
   async up(queryInterface, Sequelize) {
     // Reset the auto-increment counter to 1 (SQLite specific)
@@ -17,8 +17,8 @@ module.exports = {
     }
 
     // await queryInterface.bulkInsert("Spots", [
-      await Spot.bulkCreate([   
-      {
+      await Spot.bulkCreate([                // Create multiple spots at once
+        {
         ownerId: 1,
         address: '123 Mickey Mouse Ln',
         city: 'Los Angeles',

@@ -13,7 +13,7 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     // Reset the auto-increment counter to 1 (SQLite specific)
     if (queryInterface.sequelize.getDialect() === 'sqlite') {
-    await queryInterface.sequelize.query('DELETE FROM sqlite_sequence WHERE name="Spots"');
+    await queryInterface.sequelize.query('DELETE FROM sqlite_sequence WHERE name="Spots"'); 
     }
 
     // await queryInterface.bulkInsert("Spots", [

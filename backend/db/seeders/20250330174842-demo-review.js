@@ -16,8 +16,8 @@ module.exports = {
       await queryInterface.sequelize.query('DELETE FROM sqlite_sequence WHERE name="Reviews"');
     }
 
-    // await queryInterface.bulkInsert('Reviews', [
-    await Review.bulkCreate([                // Create multiple reviews at once
+    await queryInterface.bulkInsert('Reviews', [
+    // await Review.bulkCreate([                // Create multiple reviews at once
       {
         spotId: 1,
         userId: 1,

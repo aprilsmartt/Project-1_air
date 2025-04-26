@@ -16,8 +16,8 @@ module.exports = {
       await queryInterface.sequelize.query('DELETE FROM sqlite_sequence WHERE name="SpotImages"');
     }
 
-    // await queryInterface.bulkInsert('SpotImages', [
-    await SpotImage.bulkCreate([                // Create multiple spot-images at once
+    await queryInterface.bulkInsert('SpotImages', [
+    // await SpotImage.bulkCreate([                // Create multiple spot-images at once
       {
         spotId: 1,  // First spot
         url: 'https://example.com/images/spot1_image1.jpg',

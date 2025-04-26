@@ -7,7 +7,7 @@ let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;     //!Define schema for production
 }
-// options.tableName = "Users"; //! options.tablename can go here or inside module.exports object
+options.tableName = "Users"; //! options.tablename can go here or inside module.exports object
 
 // Type annotation for better IntelliSense in VS Code
 /** @type {import('sequelize-cli').Migration} */
@@ -18,8 +18,8 @@ module.exports = {
       await queryInterface.sequelize.query('DELETE FROM sqlite_sequence WHERE name="Users"');
     }
 
-    await User.bulkCreate([                // Create multiple users at once
-    // await queryInterface.bulkInsert("Users", [
+    // await User.bulkCreate([                // Create multiple users at once
+    await queryInterface.bulkInsert("Users", [
       {
         email: 'demo@user.io',
         username: 'Demo-lition',

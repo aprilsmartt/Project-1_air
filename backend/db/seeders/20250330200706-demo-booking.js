@@ -15,9 +15,8 @@ module.exports = {
       await queryInterface.sequelize.query('DELETE FROM sqlite_sequence WHERE name="Bookings"');
     }
 
-    // await queryInterface.bulkInsert('Bookings', [
-    await Booking.bulkCreate([
-
+    await queryInterface.bulkInsert('Bookings', [
+    // await Booking.bulkCreate([
       {
         userId: 1,
         spotId: 1,

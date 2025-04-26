@@ -15,11 +15,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "spotId",  //! The foreign key in SpotImage
         as: "spot"  //! Alias for association (lowercase)
       });
-      //! Optional: SpotImage can belong to a User indirectly via Spot
-      SpotImage.belongsTo(models.User, {
-        foreignKey: "ownerId",  // Foreign key in SpotImage, through Spot
-        as: "owner",  // Alias for the relationship (singular)
-      });
+      // //! Optional: SpotImage can belong to a User indirectly via Spot
+      // SpotImage.belongsTo(models.User, {
+      //   foreignKey: "ownerId",  // Foreign key in SpotImage, through Spot
+      //   as: "owner",  // Alias for the relationship (singular)
+      // });
     }
   }
   SpotImage.init({

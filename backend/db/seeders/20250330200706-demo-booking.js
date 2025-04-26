@@ -7,6 +7,7 @@ if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;     //!Define schema for production
 }
 
+// Type annotation for better IntelliSense in VS Code
 // /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {

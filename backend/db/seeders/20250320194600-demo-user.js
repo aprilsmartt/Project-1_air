@@ -18,8 +18,8 @@ module.exports = {
       await queryInterface.sequelize.query('DELETE FROM sqlite_sequence WHERE name="Users"');
     }
 
-    // await User.bulkCreate([                // Create multiple users at once
     await queryInterface.bulkInsert("Users", [
+    // await User.bulkCreate([                // Create multiple users at once
       {
         email: 'demo@user.io',
         username: 'Demo-lition',

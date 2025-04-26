@@ -3,13 +3,13 @@
 const { User } = require("../models");
 const bcrypt = require("bcryptjs")  //! Import bcrypt for password hashing
 
-// /** @type {import('sequelize-cli').Migration} */
-
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;     //!Define schema for production
 }
 
+// Type annotation for better IntelliSense in VS Code
+// /** @type {import('sequelize-cli').Migration} */ 
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('ReviewImages', {

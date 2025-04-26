@@ -1,7 +1,5 @@
 'use strict';
 
-/** @type {import('sequelize-cli').Migration} */  //! Need this line of code
-
 let options = {
   tableName: 'Users'  // this is the key: explicitly set the tableName here
 };
@@ -10,7 +8,8 @@ if (process.env.NODE_ENV === 'production') {
 }
 // options.tableName = "Users"; //! options.tablename can go here or inside module.exports object
 
-
+// Type annotation for better IntelliSense in VS Code
+// /** @type {import('sequelize-cli').Migration} */ 
 module.exports = {
   async up(queryInterface, Sequelize) {
     // options.tableName = "Users"; //! can go after options condtional statement OR here.

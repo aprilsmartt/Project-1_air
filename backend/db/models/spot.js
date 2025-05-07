@@ -37,6 +37,11 @@ module.exports = (sequelize, DataTypes) => {
       ownerId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references: {
+          model: 'Users',
+          key: 'id'
+        },
+        onDelete: 'CASCADE',
         validate: {
           isInt: true,
           min: 1,
@@ -46,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          notEmpty: true,
+          notEmpty: { msg: 'Street address is required' },
           len: [5, 100],
         },
       },
@@ -54,7 +59,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          notEmpty: true,
+          notEmpty: { msg: 'City is required' },
           len: [2, 100],
         },
       },
@@ -62,7 +67,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          notEmpty: true,
+          notEmpty: { msg: 'State is required' },
           len: [2, 100],
         },
       },
@@ -70,7 +75,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          notEmpty: true,
+          notEmpty: { msg: 'Country is required' },
           len: [2, 100],
         },
       },
@@ -82,6 +87,7 @@ module.exports = (sequelize, DataTypes) => {
           isDecimal: true,
           min: -90,
           max: 90,
+          msg: 'Latitude must be within -90 and 90',
         },
       },
       //! Must be between -180 (West) and 180 (East)
@@ -92,13 +98,14 @@ module.exports = (sequelize, DataTypes) => {
           isDecimal: true,
           min: -180,
           max: 180,
+          msg: 'Longitude must be within -180 and 180',
         },
       },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          notEmpty: true,
+          notEmpty: { msg: 'Name must be less than 50 characters' },
           len: [3, 100],
         },
       },
@@ -106,7 +113,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          notEmpty: true,
+          notEmpty: { msg: 'Description is required' },
           len: [1, 500]
         },
       },

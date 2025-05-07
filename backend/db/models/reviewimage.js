@@ -15,12 +15,12 @@ module.exports = (sequelize, DataTypes) => {
       //   foreignKey: "reviewId", // foreign key in ReviewImage
       //   as: "review"  // alias for the association
       // });
-      
+
       ReviewImage.belongsTo(models.Review, {
         foreignKey: "reviewId",  //! The foreign key in ReviewImage
         as: "review"  //! Alias for association (lowercase)
       });
-      
+
       //! Optional: ReviewImage can belong to a User indirectly via Spot
       // If needed, this can be defined through the Spot -> Review -> ReviewImage relationship:
       // ReviewImage.belongsTo(models.User, {
@@ -33,6 +33,11 @@ module.exports = (sequelize, DataTypes) => {
     reviewId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: 'Reviews',
+        key: 'id',
+      },
+      onDelete: 'CASCADE',
       validate: {
         isInt: true,
         min: 1,

@@ -11,10 +11,10 @@ const handleValidationErrors = (req, _res, next) => {
       .array()                                              // Convert errors to array
       .forEach(error => errors[error.path] = error.msg);    // Format errors as key-value pairs
 
-    const err = Error("Bad request.");                       // Create error object
+    const err = Error("Bad Request");                       // Create error object
     err.errors = errors;                                     // Attach formatted errors
     err.status = 400;                                        // Set HTTP status code to 400 (Bad Request)
-    err.title = "Bad request.";                              // Set error title
+    err.title = "Bad Request";                              // Set error title
     next(err);                                               // Pass error to error-handling middleware
   }
   next();                                                    // Proceed if no errors

@@ -22,6 +22,9 @@ app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(express.json());
 
+//! Security middleware
+app.use(helmet()); // Apply Helmet universally to secure your app with default security headers
+
 // Security middleware
 if (!isProduction) {
   // Enable CORS only in development

@@ -1,6 +1,7 @@
 'use strict';
 
 const { Booking } = require("../models");
+const bcrypt = require("bcryptjs");
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {

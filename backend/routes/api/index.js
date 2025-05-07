@@ -1,7 +1,18 @@
-const router = require('express').Router();     // Create a new Express router instance
-const sessionRouter = require('./session.js');         // Import session router
-const usersRouter = require('./users.js');             // Import users router
-const { restoreUser } = require("../../utils/auth.js");  // Import auth middleware
+//! Create and initialize a new Express Router instance for route handling
+const router = require('express').Router();
+
+//! Import route modules
+const sessionRouter = require('./session.js'); // Handles session-related routes (login, logout, etc.)
+const usersRouter = require('./users.js'); // Handles user registration and user-related routes
+const spotsRouter = require('./spots.js'); // Handles spot listing and management routes
+const reviewsRouter = require('./reviews.js'); // Handles review creation, editing, and deletion
+const bookingsRouter = require('./bookings.js'); // Handles booking-related routes
+const spotImagesRouter = require('./spot-images.js'); // Handles image uploads and management for spots
+const reviewImagesRouter = require('./review-images.js'); // Handles image uploads and management for reviews
+
+//! Auth middleware to restore user session from token
+const { restoreUser } = require("../../utils/auth.js");
+
 
 //! Connect restoreUser middleware to the API router
 // If current user session is valid, set req.user to the user in the database
@@ -9,8 +20,14 @@ const { restoreUser } = require("../../utils/auth.js");  // Import auth middlewa
 router.use(restoreUser);
 
 //! Add middleware to connect to "session" and "users" routers
+//! Mounted Routers at /api/...
 router.use('/session', sessionRouter);                 // Mount session router at /api/session
 router.use('/users', usersRouter);                     // Mount users router at /api/users
+router.use('/spots', spotsRouter)
+router.use('/reviews', reviewsRouter)
+router.use('/bookings', bookingsRouter)
+router.use('/spot-images', spotImagesRouter)
+router.use('/review-images', reviewImagesRouter)
 
 
 
@@ -64,7 +81,6 @@ router.use('/users', usersRouter);                     // Mount users router at 
 
 // ================================ END OF TESTING CODE ================================
 
-  
 
 module.exports = router;                        // Export the router for use in other files
 
@@ -79,4 +95,3 @@ module.exports = router;                        // Export the router for use in 
 //     },
 //     body: JSON.stringify({ hello: 'world' })      // Convert JS object to JSON string
 //   }).then(res => res.json()).then(data => console.log(data));
-  

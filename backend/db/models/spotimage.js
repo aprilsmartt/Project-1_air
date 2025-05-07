@@ -26,6 +26,11 @@ module.exports = (sequelize, DataTypes) => {
     spotId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: 'Spots',
+        key: 'id',
+      },
+      onDelete: 'CASCADE',  // Optional: Delete SpotImages when the associated Spot is deleted
       validate: {
         isInt: true,
         min: 1,

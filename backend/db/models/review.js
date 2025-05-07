@@ -11,14 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Review.belongsTo(models.Spot, { 
-        foreignKey: "spotId", 
+      Review.belongsTo(models.Spot, {
+        foreignKey: "spotId",
         as: "spot", //! Alias for Spot association,
         unique: 'unique_review_per_spot' //! Prevent multiple reviews for the same spot
       });
-      
-      Review.belongsTo(models.User, { 
-        foreignKey: "userId", 
+
+      Review.belongsTo(models.User, {
+        foreignKey: "userId",
         as: "user", //! Alias for User association,
         unique: 'unique_review_per_user' //! Prevent multiple reviews from the same user
       });
@@ -26,13 +26,18 @@ module.exports = (sequelize, DataTypes) => {
       Review.hasMany(models.ReviewImage, {
         foreignKey: "reviewId",
         as: "reviewImages" // or whatever alias you want
-      });      
+      });
     }
   }
   Review.init({
     spotId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: 'Spots',
+        key: 'id',
+      },
+      onDelete: 'CASCADE',
       validate: {
         isInt: true,
         min: 1,
@@ -41,6 +46,12 @@ module.exports = (sequelize, DataTypes) => {
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: 'Users',
+        key: 'id',
+      },
+      onDelete: 'CASCADE',
+
       validate: {
         isInt: true,
         min: 1,

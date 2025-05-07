@@ -1,11 +1,17 @@
+'use strict';
+
+// External libraries
 const express = require('express');          // Import Express
 const bcrypt = require('bcryptjs');              // For password hashing
+const { check } = require('express-validator');  // Validation library
+const { UniqueConstraintError } = require('sequelize');
 
+// Internal utilities 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');  // Auth utilities
-const { User } = require('../../db/models');     // User model
+const { handleValidationErrors } = require('../../utils/validation');  // Validation handler
 
-const { check } = require('express-validator');
-const { handleValidationErrors } = require('../../utils/validation');
+// Models
+const { User } = require('../../db/models');     // User model
 
 const router = express.Router();             // Create a router instance
 
@@ -14,56 +20,76 @@ const validateSignup = [
   check('email')
     .exists({ checkFalsy: true })                      // Email must exist and not be falsy
     .isEmail()                                         // Must be valid email format
-    .withMessage('Please provide a valid email.'),
+    .withMessage('Invalid email.'),
   check('username')
     .exists({ checkFalsy: true })                      // Username must exist and not be falsy
     .isLength({ min: 4 })                              // Must be at least 4 characters
-    .withMessage('Please provide a username with at least 4 characters.'),
-  check('username')
-    .not()                                             // Username must NOT...
-    .isEmail()                                         // ...be an email
+    .withMessage('Username is required')
+    .not()
+    .isEmail()                                   // Username must NOT be an email
     .withMessage('Username cannot be an email.'),
   check('password')
     .exists({ checkFalsy: true })                      // Password must exist and not be falsy
-    .isLength({ min: 6 })                              // Must be at least 6 characters
-    .withMessage('Password must be 6 characters or more.'),
+    .isLength({ min: 8 })                              // Must be at least 8 characters
+    .withMessage('Password must be 8 characters or more.'),
   //! firstName and lastName validators
   check('firstName')
     .exists({ checkFalsy: true })
-    .withMessage('Please provide a first name.'),
+    .withMessage('First Name is required'),       // POST /api/users endpoint
   check('lastName')
     .exists({ checkFalsy: true })
-    .withMessage('Please provide a last name.'),
-  handleValidationErrors                               // Process validation results
+    .withMessage('Last Name is required'),         // POST /api/users endpoint
+  handleValidationErrors                          // Handle validation errors
 ];
 
-// Sign up // !added validateSignup to router.post
-router.post('/', validateSignup, async (req, res) => {           // POST /api/users endpoint
-  //! added firstName, lastName throught
+//Sign Up a User
+router.post('/', validateSignup, async (req, res) => {
+  //! added firstName, lastName throughout
   const { email, password, username, firstName, lastName } = req.body;  // Extract user data
 
-  // Hash the password
-  const hashedPassword = bcrypt.hashSync(password);  // Create secure hash
+  try {
+    // Hash the password
+    const hashedPassword = bcrypt.hashSync(password);  // Create secure hash
 
-  // Create a new user
-  const user = await User.create({ email, username, hashedPassword, firstName, lastName });  // Save to DB
+    // Create a new user
+    const user = await User.create({ email, username, hashedPassword, firstName, lastName });  // Save to DB
 
-  // Create a safe user object (without hashedPassword)
-  const safeUser = {
-    id: user.id,
-    email: user.email,
-    username: user.username,
-    firstName: user.firstName,
-    lastName: user.lastName
-  };
+    // Create a safe user object (without hashedPassword)
+    const safeUser = {
+      id: user.id,
+      email: user.email,
+      username: user.username,
+      firstName: user.firstName,
+      lastName: user.lastName
+    };
 
-  // Set the JWT cookie
-  await setTokenCookie(res, safeUser);           // Login the new user automatically
+    // Set the JWT cookie
+    await setTokenCookie(res, safeUser);           // Login the new user automatically
 
-  // Return the user information
-  return res.json({
-    user: safeUser                              // Return user data
-  });
+    // Return the user information
+    return res.status(201).json({ user: safeUser });
+
+  } catch (err) {
+    if (err instanceof UniqueConstraintError) {
+      const errors = {};
+
+      err.errors.forEach(e => {
+        if (e.path === 'email') {
+          errors.email = 'User with that email already exists';
+        }
+        if (e.path === 'username') {
+          errors.username = 'User with that username already exists';
+        }
+      });
+
+      return res.status(500).json({
+        message: 'User already exists',
+        errors
+      });
+    }
+    // Pass any other errors to the default error handler
+    return next(err);
+  }
 });
 
 

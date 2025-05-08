@@ -43,6 +43,14 @@ export const logout = () => async (dispatch) => {
     return response;
 };
 
+// Thunk Action for Restore User
+export const restoreUser = () => async (dispatch) => {
+    const response = await csrfFetch("/api/session");
+    const data = await response.json();
+    dispatch(setUser(data.user));
+    return response;
+  };
+
 const initialState = { user: null };
 
 // Session Uaer's Redux Reducer

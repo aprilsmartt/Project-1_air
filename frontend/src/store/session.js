@@ -23,32 +23,42 @@ const removeUser = () => {
 export const login = (user) => async (dispatch) => {
     const { credential, password } = user;
     const response = await csrfFetch("/api/session", {
-      method: "POST",
-      body: JSON.stringify({
-        credential,
-        password
-      })
+        method: "POST",
+        body: JSON.stringify({
+            credential,
+            password
+        })
     });
     const data = await response.json();
     dispatch(setUser(data.user));
     return response;
-  };
-  
-  const initialState = { user: null };
-  
-  // Session Uaer's Redux Reducer
-  const sessionReducer = (state = initialState, action) => {
+};
+
+// Thunk Action for Logout
+export const logout = () => async (dispatch) => {
+    const response = await csrfFetch("/api/session", {
+        method: "DELETE"
+    });
+    dispatch(removeUser());
+    return response;
+};
+
+const initialState = { user: null };
+
+// Session Uaer's Redux Reducer
+const sessionReducer = (state = initialState, action) => {
     switch (action.type) {
-      case SET_USER:
-        return { ...state, user: action.payload };
-      case REMOVE_USER:
-        return { ...state, user: null };
-      default:
-        return state;
+        case SET_USER:
+            return { ...state, user: action.payload };
+        case REMOVE_USER:
+            return { ...state, user: null };
+        default:
+            return state;
     }
-  };
-  
-  export default sessionReducer;
-  
+};
+
+
+export default sessionReducer;
+
 
 

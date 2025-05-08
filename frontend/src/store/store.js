@@ -1,7 +1,12 @@
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
-import { login } from './session'; 
+import sessionReducer from './session';
+// import { login } from './session'; 
+// import configureStore from './store';
 
+// /*const store = configureStore();*/
+
+/*
 const testReducer = (state = {}, action) => {
   switch (action.type) {
     case 'hello':
@@ -11,11 +16,11 @@ const testReducer = (state = {}, action) => {
       return state;
   }
 };
+*/
 
 const rootReducer = combineReducers({
   // ADD REDUCERS HERE
-  test: testReducer,
-  // login: loginReducer
+  session: sessionReducer
 });
 
 let enhancer;
@@ -28,15 +33,16 @@ if (import.meta.env.MODE === "production") {
   enhancer = composeEnhancers(applyMiddleware(thunk, logger));
 }
 
+// Configure the store and export the function to create the store
 const configureStore = (preloadedState) => {
   return createStore(rootReducer, preloadedState, enhancer);
 };
 
   // // Expose store and login to the window for DevTools testing
   // if (import.meta.env.DEV) {
+  //     restoreCSRF();
   //   window.store = store;
-  //   window.login = login;
+  //   window.sessionActions = sessionActions;
   // }
-
 
 export default configureStore;

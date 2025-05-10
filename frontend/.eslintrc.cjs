@@ -18,4 +18,21 @@ module.exports = {
     ],
     'react/prop-types': 'off'
   },
+  overrides: [
+    {
+      files: [
+        "src/context/*.jsx"
+      ],
+
+      //! to include subfolders under context
+      // files: ["src/context/**/*.jsx"],
+
+      //! to add .js or .tsx files
+      // files: ["src/context/**/*.{js,jsx,ts,tsx}"],
+
+      rules: {
+        'react-refresh/only-export-components': 'off'
+      }
+    }
+   ],   
 }

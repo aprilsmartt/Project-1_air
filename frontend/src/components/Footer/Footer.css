@@ -1,0 +1,22 @@
+.footer {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    vertical-align: center;
+    background-color: none;
+    width: 100%;
+    padding-top: 60px;
+    /* z-index: 200; */
+    /* background-color: rgb(180, 176, 176); */
+    /* min-height: 50vh; */
+    /* height: 18vh;  */
+    /* margin:  0 auto; */
+    /* padding: 20px; */
+
+}
+
+
+.footer>p {
+    padding: 5px;
+    font-size: 14px;
+}

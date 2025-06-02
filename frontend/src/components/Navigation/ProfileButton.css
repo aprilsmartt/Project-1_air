@@ -1,0 +1,33 @@
+.hidden {
+    display: none;
+  }
+
+.profile-button  {
+  /* background-color: pink; */
+  /* color: black; */
+  background-color: transparent;
+  box-shadow: none;
+  padding-right: 30px;
+  padding-top: 30px;
+  cursor: pointer;
+  /* transition: background-color 0.3s ease; */
+
+  /* z-index: 200; */
+  /* width: 200px;
+  height: 500px; */
+}
+
+.profile-icon {
+  height: 35px; 
+  width: 35px;
+  color: black;
+    /* z-index: 250; */
+}
+
+/* button.profile-icon {
+  position: absolute;
+  display: flex;
+  text-align: right;
+  justify-content: flex-end;
+  align-items: end;
+} */

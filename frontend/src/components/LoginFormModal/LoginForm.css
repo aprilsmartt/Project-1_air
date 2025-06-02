@@ -1,0 +1,55 @@
+  form {
+      display: flex;
+      flex-direction: column;
+      width: 300px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: transparent;
+      border-radius: 10px;
+      z-index: 1000;
+  }
+
+  label {
+      margin-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+  }
+
+  label input {
+      margin-top: 5px;
+      padding: 5px;
+  }
+
+  ul {
+      color: blue;
+      list-style-type: none;
+      padding: 0;
+  }
+
+
+  ProfileButton {
+      background-color: pink;
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      /* align-self: flex-end; */
+
+  }
+
+  button {
+      background-color: green;
+      color: white;
+      font-weight: bold;
+      height: 30px;
+      margin-top: 20px;
+      /* box-shadow: none|h-offset v-offset blur spread color |inset|initial|inherit; */
+      box-shadow: 2px 2px 10px 1px gray;
+      /* box-shadow: 2px 2px 2px 2px rgb(0 0 0 / 10%); */
+      /* border-radius: 5px; */
+      border: none;
+  }
+
+  .error {
+      color: red;
+      margin-top: 5px;
+  }

@@ -1,4 +1,20 @@
-#modal {
+  /* Modal overlay: dark background covering the entire screen */
+  .modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* semi-transparent black */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    /* make sure it's above your banner */
+  }
+
+  #modal {
     position: fixed;
     top: 0;
     right: 0;
@@ -7,8 +23,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1000;
   }
-  
+
   #modal-background {
     position: fixed;
     top: 0;
@@ -17,9 +34,24 @@
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.7);
   }
-  
+
   #modal-content {
-    position: absolute;
-    background-color: white;
+    background-color: #f2f1ef;
+    color: black;
+    padding: 20px;
+    border-radius: 8px;
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -20%);
   }
-  
+
+  /* Modal content box (where the form lives) */
+  .modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    position: relative;
+    z-index: 1000;
+    /* stays above overlay */
+  }

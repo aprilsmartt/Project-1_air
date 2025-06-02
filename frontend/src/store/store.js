@@ -1,12 +1,20 @@
+//! createStore is deprecated... use createStore as alias
+//! Don't mix old redux old redux packages with configureStore
+//! UNABLE TO USE configureStore without refactoring file; cannot mix old Redux with Redux Tookit
+// Import { configureStore as createStore } from '@reduxjs/toolkit';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
+// Import ALL Reducers
 import sessionReducer from './session';
-// import { login } from './session'; 
-// import configureStore from './store';
+import spotsReducer from './spots';
+import spotImagesReducer from './spotImages';
+// import reviewImagesReducer from './reviewImages';
+import reviewsReducer from './reviews';
 
-// /*const store = configureStore();*/
 
-/*
+//! TESTS ==================================================================================
+/*const store = configureStore();
+
 const testReducer = (state = {}, action) => {
   switch (action.type) {
     case 'hello':
@@ -17,10 +25,17 @@ const testReducer = (state = {}, action) => {
   }
 };
 */
+//! ====================================== END OF TESTS ======================================
 
 const rootReducer = combineReducers({
   // ADD REDUCERS HERE
-  session: sessionReducer
+  session: sessionReducer,
+  spots: spotsReducer,
+  images: combineReducers({
+    spot: spotImagesReducer,
+    // review: reviewImagesReducer
+  }),
+  reviews: reviewsReducer
 });
 
 let enhancer;
@@ -35,14 +50,9 @@ if (import.meta.env.MODE === "production") {
 
 // Configure the store and export the function to create the store
 const configureStore = (preloadedState) => {
+  //! CANNOT use createStore as alias of configureStore; using deprecated createStore
   return createStore(rootReducer, preloadedState, enhancer);
 };
 
-  // // Expose store and login to the window for DevTools testing
-  // if (import.meta.env.DEV) {
-  //     restoreCSRF();
-  //   window.store = store;
-  //   window.sessionActions = sessionActions;
-  // }
 
 export default configureStore;

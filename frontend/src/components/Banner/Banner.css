@@ -1,0 +1,73 @@
+.banner {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 50vh;
+  height: 40vh;
+  overflow: hidden;
+}
+
+/* Left content box */
+.banner-intro-box {
+  width: 40vw;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 1;
+}
+
+/* Right-side image container */
+.banner-image {
+  width: 60vw;
+  height: 100%;
+  position: relative;
+  z-index: 0;
+}
+
+/* Image itself */
+.banner-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0.8;
+}
+
+/* Heading and subtext */
+.banner-intro-box > h1 {
+  font-size: 1.75em;
+  margin: 0;
+}
+
+.banner-intro-box {
+    background-color: black;
+}
+
+.banner-intro-box > h4 {
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+/* Explore Spots button */
+.intro-box-button {
+  margin-top: 20px;
+  padding: 10px;
+  width: 100%;
+  height: 35px;
+  
+  background-color: rgb(241, 188, 33); /* Yellow */
+  color: white;                        /* White text */
+  font-size: 1rem;
+  font-weight: bold;
+  border: 1px solid white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.intro-box-button:hover {
+  background-color: #e0aa00; /* darker yellow on hover */
+}

@@ -1,0 +1,10 @@
+.home-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-center;
+  gap: 20px;
+  /* row-gap: 16px; */
+  /* column-gap: 100px; */
+  padding: 20px;
+  padding-top: 20px;
+}

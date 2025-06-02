@@ -172,7 +172,7 @@ const spotsReducer = (state = initialState, action) => {
         case SET_SPOT_DETAILS:
             return {
                 ...state,
-                singleSpot: action.spot
+                singleSpot: action.payload
             };
 
 

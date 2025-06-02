@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 // import { getAllSpotsThunk } from "../../store/spots";
 import { getSpotDetailsThunk } from "../../store/spots";
@@ -7,15 +8,19 @@ import './SpotDetails.css'; // optional, if you have CSS for this
 
 const SpotDetails = () => {
   const dispatch = useDispatch();
-  const spots = useSelector((state) => state.spots?.allSpots);
+  const { spotId } = useParams();
+  // const spots = useSelector((state) => state.spots?.allSpots);
+  const spot = useSelector((state) => state.spots?.singleSpot);
 
   useEffect(() => {
-    dispatch(getSpotDetailsThunk());
-  }, [dispatch]);
+    if (spotId) dispatch(getSpotDetailsThunk(spotId));
+  }, [dispatch, spotId]);
 
-  if (!spots || Object.keys(spots).length === 0) return <div>No spots found.</div>;
+  // if (!spots || Object.keys(spots).length === 0) return <div>No spots found.</div>;
+  if (!spot || Object.keys(spot).length === 0) return <div>No spots found.</div>;
 
-  const spot = Object.values(spots)[0]; // TEMP: Use first spot (replace with ID later)
+  // const spot = Object.values(spots)[0]; // TEMP: Use first spot (replace with ID later)
+  // Removed the above line because spot is already the single spot object
 
   const {
     spotImages = [],
@@ -44,7 +49,11 @@ const SpotDetails = () => {
     });
   }
 
-    return (
+  console.log("THESE ARE MY spotImages:", spotImages);
+  // console.log("spotImages", spotImages);
+  // console.log("fullImages used for rendering:", fullImages);
+
+  return (
     <>
       <div className="details-page-wrapper">
         <div className="spot-details-container">
@@ -101,7 +110,7 @@ const SpotDetails = () => {
             <p>Month 20##</p>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente repellat numquam molestias.</p>
 
-                        <h3>Firstname</h3>
+            <h3>Firstname</h3>
             <p>Month 20##</p>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente repellat numquam molestias.</p>
 

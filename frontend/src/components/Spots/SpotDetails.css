@@ -1,47 +1,81 @@
 .details-page-wrapper {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 20px;
-  }
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* IMAGE CONTAINER SPLIT: 1 large left + 4 small right */
+.detail-page-images-container {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+  height: 400px;
   
-  /* IMAGE CONTAINER SPLIT: 1 large left + 4 small right */
-  .detail-page-images-container {
-    display: flex;
-    gap: 10px;
-    margin: 20px 0;
-    height: 500px;
-  }
-  
-  /* LARGE LEFT IMAGE */
-  .left-large-image {
-    flex: 2;
-    height: 100%;
-    border: 1px solid black;
-  }
-  
-  .left-large-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 10px;
-    /* background-color: black; */
-  }
-  
-  /* RIGHT SMALL IMAGES: 2x2 grid */
-  .right-small-images {
-    flex: 1;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 10px;
-    height: 100%;
-    border: 1px solid black;
-  }
-  
-  .right-small-images img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 10px;
-  }
-  
+}
+
+/* LARGE LEFT IMAGE - make less wide */
+.left-large-image {
+  flex: 1.5;  /* reduced from 2 to 1.5 */
+  height: 100%;
+  border: 1px solid black;
+}
+
+.left-large-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* RIGHT SMALL IMAGES: 2x2 grid */
+.right-small-images {
+  flex: 1.2; /* slightly wider to balance */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* Make rows shorter to get rectangles wider than tall */
+  grid-template-rows: 0.6fr 0.6fr;  
+  gap: 10px;
+  height: 100%;
+  border: 1px solid black;
+}
+
+.right-small-images > div {
+  width: 100%;
+  height: 100%;
+  background-color: black; /* This ensures a visible background under the image */
+  border-radius: 10px;
+  overflow: hidden; /* Ensures image corners follow the border radius */
+}
+
+.right-small-images img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* background-color: black; */
+  border-radius: 10px;
+}
+
+/* GLOBALLY targets any element that has the class placeholder-img */
+/* 
+.placeholder-img {
+  object-fit: contain !important;
+  background-color: #ddd;
+  background-color: black; 
+}
+*/
+
+/* Targets only image elements that have the class placeholder-img */
+.right-small-images img.placeholder-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;  /* Fill space fully */
+  background-color: black;  /* fallback in case image has transparency */
+}
+
+/* Targets only image elements that have the class placeholder-img */
+.right-small-images img.placeholder-img {
+  width: 100%;       /* make image fill container width */
+  height: 100%;      /* make image fill container height */
+  object-fit: cover; /* cover fills and crops to container */
+  background-color: black; /* fallback background */
+}

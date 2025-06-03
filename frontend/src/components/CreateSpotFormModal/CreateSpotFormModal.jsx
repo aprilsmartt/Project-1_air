@@ -189,7 +189,7 @@ function CreateSpotFormModal() {
         {formErrors.previewImage && <p>{formErrors.previewImage}</p>}
 
         <label>
-          Image URL 1
+          Image URL #1
           <input
             type="text"
             value={imageUrl1}
@@ -202,7 +202,7 @@ function CreateSpotFormModal() {
         {formErrors.imageUrl1 && <p>{formErrors.imageUrl1}</p>}
 
         <label>
-          Image URL 2
+          Image URL #2
           <input
             type="text"
             value={imageUrl2}
@@ -215,7 +215,7 @@ function CreateSpotFormModal() {
         {formErrors.imageUrl2 && <p>{formErrors.imageUrl2}</p>}
 
         <label>
-          Image URL 3
+          Image URL #3
           <input
             type="text"
             value={imageUrl3}
@@ -228,7 +228,7 @@ function CreateSpotFormModal() {
         {formErrors.imageUrl3 && <p>{formErrors.imageUrl3}</p>}
 
         <label>
-          Image URL 4
+          Image URL #4
           <input
             type="text"
             value={imageUrl4}

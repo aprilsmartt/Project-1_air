@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import SpotsList from '../components/Spots/SpotsList';  // Your list component
-import { getAllSpotsThunk } from '../store/spots';
+import SpotsList from './SpotsList';  // Your list component
+import { getAllSpotsThunk } from '../../store/spots';
 
 const SpotsListPage = () => {
   const dispatch = useDispatch();

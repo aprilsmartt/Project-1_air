@@ -1,0 +1,94 @@
+.hidden {
+  display: none;
+}
+
+.profile-button {
+  position: relative;    /* enable z-index */
+  z-index: 9999;         /* ensure it's above banner */
+  background-color: transparent;
+  box-shadow: none;
+  padding-right: 30px;
+  padding-top: 30px;
+  cursor: pointer;
+}
+
+/* .profile-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 2000;
+  background-color: transparent;
+  cursor: pointer;
+} */
+
+.profile-icon {
+  height: 35px;
+  width: 35px;
+  color: black;
+  /* z-index: 250; */
+}
+
+.login-greeting {
+  padding-bottom: 10px;
+  color: black;
+}
+
+.profile-dropdown {
+  position: absolute;
+  right: 30px;
+  top: 70px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  padding: 10px 15px;
+  min-width: 200px;
+  z-index: 9998;
+}
+
+.profile-dropdown li {
+  margin-bottom: 8px;
+  word-break: break-word;
+  color: black
+}
+
+.profile-dropdown li:last-child {
+  margin-bottom: 0;
+}
+
+/* Links like Manage Spots / Manage Reviews */
+.profile-dropdown li a {
+  color: black;
+  text-decoration: none;
+  display: block;
+  padding: 5px 0;
+}
+
+.profile-dropdown li a:hover {
+  text-decoration: underline;
+}
+
+/* Logout button */
+.profile-dropdown li button {
+  background: none;
+  border: none;
+  padding: 5px 0;
+  width: 100%;
+  text-align: center;
+  font: inherit;
+  font-weight: bold;
+  cursor: pointer;
+  color: white; /* keep logout button color */
+  background-color: green;
+}
+
+.profile-dropdown li button:hover {
+  text-decoration: underline;
+}
+
+.menu-separator {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 8px 0;
+}

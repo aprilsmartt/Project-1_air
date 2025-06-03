@@ -19,7 +19,7 @@ const removeUser = () => {
 };
 
 // Thunk is a function returning a function
-// Thunk Action for Login
+// Thunk Action for Login  //! changed from login to loginUser
 export const login = (user) => async (dispatch) => {
     const { credential, password } = user;
     const response = await csrfFetch("/api/session", {
@@ -29,12 +29,17 @@ export const login = (user) => async (dispatch) => {
             password
         })
     });
-    const data = await response.json();
-    dispatch(setUser(data.user));
-    return response;
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(setUser(data.user));
+        return data;
+    } else {
+        // Throw response so caller can handle error
+        throw response;
+    }
 };
 
-// Thunk Action for Logout
+// Thunk Action for Logout    //! changed from logout to logoutUser
 export const logout = () => async (dispatch) => {
     const response = await csrfFetch("/api/session", {
         method: "DELETE"
@@ -51,7 +56,7 @@ export const restoreUser = () => async (dispatch) => {
     return response;
 };
 
-// Thunk Action for Sign Up
+// Thunk Action for Sign Up   //! changed from signup to signupUser
 export const signup = (user) => async (dispatch) => {
     const { username, firstName, lastName, email, password } = user;
     const response = await csrfFetch("/api/users", {

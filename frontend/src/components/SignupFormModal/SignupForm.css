@@ -1,0 +1,36 @@
+.signup-form-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.4); /* optional */
+}
+
+h1 {
+    text-align: center;
+}
+
+/* === Error Styling === */
+.error {
+    color: red;
+    margin-top: 5px;
+}
+
+
+.login-header-container {
+  width: 300px;          /* same width as form */
+  margin: 0 auto;        /* center horizontally */
+  text-align: left;      /* ensure text aligns left inside the box */
+}
+
+.login-error {
+  color: red;
+  margin-top: 5px;
+  font-size: 17px;
+  font-weight: bold;
+}

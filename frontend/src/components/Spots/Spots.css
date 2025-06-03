@@ -1,0 +1,141 @@
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(4, 440px);
+    /* Four fixed-width columns */
+    gap: 30px;
+    /* Gap between cards */
+    justify-content: center;
+    /* Center the grid itself */
+    margin: 20px auto;
+    /* Add vertical margin */
+    /* padding: 0 0; */
+    /* Optional horizontal padding */
+    box-sizing: border-box;
+}
+
+
+.spot-card {
+    display: flex;
+    flex-direction: column;
+    /* flex-wrap: wrap; */
+    justify-content: flex-start;
+
+    width: 440px;
+    height: 350px;
+
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 2px 2px 10px 2px gray;
+
+    margin: 0;
+    /* Corrected from "0, 0" */
+    box-sizing: border-box;
+}
+
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 250px; /* same height as the image */
+}
+
+.tooltip {
+    position: absolute;
+    top: 44%;  /* vertical center */
+    left: 50%; /* horizontal center */
+    transform: translate(-50%, -50%); /* shift back by half width and height */
+
+    background-color: black;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 16px;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+.spot-card-image {
+    display: flex;
+    flex-wrap: flex;
+    object-fit: cover;
+    /* prevents distortion */
+    width: 100%;
+    height: 250px;
+    /* background-color: transparent;
+    row-gap: 50px;
+    column-gap: 50px; */
+}
+
+.spot-card-info-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  width: 100%;
+  min-width: 350px;
+  height: 250px;
+
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 10px;
+
+  /* NOTE: object-fit doesn’t apply/will not work on divs */
+}
+
+/* for h4 text */
+.spot-card-description {
+    font-size: 12px;
+    color: black;
+    /* font-size: 14px; */
+    font-weight: 300;
+    margin: 4px 0;
+}
+
+/* group city,state and rating on same line */
+.spot-card-city-state-rating {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding-right: 20px;
+}
+
+/* for h2 text */
+.spot-card-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* for h3 text */
+.spot-card-location {
+    display: block;
+    font-size: 17px;
+    font-weight: 500;
+    margin: 0;
+
+    /* === Styles if using under a title === */
+    /* font-size: 14px;
+    font-weight: 500;
+    margin-top: 2px;
+    */
+}
+
+.spot-card-star-rating {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* for h3 text */
+.spot-card-price {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+    /* Remove top and bottom margin to prevent spacing issues */
+}
+
+.price-unit {
+  font-size: 16px;
+  font-weight: 400;
+  color: black;
+}

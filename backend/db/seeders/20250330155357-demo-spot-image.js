@@ -16,12 +16,11 @@ module.exports = {
     if (queryInterface.sequelize.getDialect() === 'sqlite') {
       await queryInterface.sequelize.query('DELETE FROM sqlite_sequence WHERE name="SpotImages"');
     }
+    // //! Delete existing SpotImages to prevent duplicates
+    // await queryInterface.bulkDelete('SpotImages', {}, options);
 
-    //! Delete existing SpotImages to prevent duplicates
-    await queryInterface.bulkDelete('SpotImages', {}, options);
-
-
-    await queryInterface.bulkInsert('SpotImages', [
+    options.tableName = "SpotImages";
+    await queryInterface.bulkInsert(options, [
       // Spot 1
       {
         spotId: 1,
@@ -233,6 +232,6 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {
     options.tableName = "SpotImages";  // Keep options for schema support
-    return queryInterface.bulkDelete("SpotImages", {}, options);  // Returning the promise
+    return queryInterface.bulkDelete(options, {}, {});  // Returning the promise
   }
 };

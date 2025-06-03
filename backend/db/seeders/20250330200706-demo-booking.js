@@ -17,7 +17,8 @@ module.exports = {
       await queryInterface.sequelize.query('DELETE FROM sqlite_sequence WHERE name="Bookings"');
     }
 
-    await queryInterface.bulkInsert('Bookings', [
+    options.tableName = "Bookings";
+    await queryInterface.bulkInsert(options, [
     // await Booking.bulkCreate([
       {
         userId: 1,
@@ -59,11 +60,11 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       }
-    ], options);
+    ], {});
   },
 
   async down(queryInterface, Sequelize) {
     options.tableName = "Bookings";  // Keep options for schema support
-    return queryInterface.bulkDelete("Bookings", {}, options);  // Returning the promise
+    return queryInterface.bulkDelete(options, {}, {});  // Returning the promise
   }
 };

@@ -17,7 +17,8 @@ module.exports = {
       await queryInterface.sequelize.query('DELETE FROM sqlite_sequence WHERE name="ReviewImages"');
     }
 
-    await queryInterface.bulkInsert('ReviewImages', [
+    options.tableName = "ReviewImages";
+    await queryInterface.bulkInsert(options, [
     // await ReviewImage.bulkCreate([                // Create multiple review-images at once
       {
         reviewId: 1,
@@ -49,11 +50,11 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
-    ]);
+    ], {});
   },
 
   async down(queryInterface, Sequelize) {
     options.tableName = "ReviewImages";  // Keep options for schema support
-    return queryInterface.bulkDelete("ReviewImages", {}, options);  // Returning the promise
+    return queryInterface.bulkDelete(options, {}, {});  // Returning the promise
   }
 };

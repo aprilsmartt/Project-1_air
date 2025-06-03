@@ -1,7 +1,7 @@
 'use strict';
 
 let options = {
-  tableName: 'Users'  // this is the key: explicitly set the tableName here
+  // tableName: 'Users'  // this is the key: explicitly set the tableName here
 };
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
@@ -12,7 +12,7 @@ if (process.env.NODE_ENV === 'production') {
 // /** @type {import('sequelize-cli').Migration} */ 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    // options.tableName = "Users"; //! can go after options condtional statement OR here.
+    options.tableName = "Users"; //! can go after options condtional statement OR here.
 
     //! Note: options should be the first argument throughout
       await queryInterface.addColumn(options, 'firstName', {    // Add firstName column
@@ -35,12 +35,7 @@ module.exports = {
      */
     // ! If this format doesn't migrate properly, then use the code below
     options.tableName = "Users";
-
     await queryInterface.removeColumn(options, 'firstName');   // Remove in down migration
     await queryInterface.removeColumn(options, 'lastName');    // Remove in down migration
-
-    // // ! Note: when using this code, the User table needs to be referred to first
-    // await queryInterface.removeColumn("Users", 'firstName', options);   // Remove in down migration
-    // await queryInterface.removeColumn("Users", 'lastName', options);    // Remove in down migration
   }
 };

@@ -18,7 +18,8 @@ module.exports = {
       await queryInterface.sequelize.query('DELETE FROM sqlite_sequence WHERE name="Users"');
     }
 
-    await queryInterface.bulkInsert("Users", [
+    options.tableName = "Users";
+    await queryInterface.bulkInsert(options, [
     // await User.bulkCreate([                // Create multiple users at once
       {
         email: 'demo@user.io',
@@ -59,7 +60,7 @@ module.exports = {
     //! 3 Arguments used: bulkDelete(tableName, whereCondition, options)
     return queryInterface.bulkDelete(options, {
       username: { [Op.in]: ['Demo-lition', 'FakeUser1', 'FakeUser2'] }  // Delete specific users
-    }, options);
+    }, {});
 
     // //! Will delete all records from table (deletes all rows)
     // options.tableName = "Users";  // Keep options for schema support

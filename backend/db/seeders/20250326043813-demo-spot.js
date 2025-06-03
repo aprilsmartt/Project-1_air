@@ -16,12 +16,11 @@ module.exports = {
     if (queryInterface.sequelize.getDialect() === 'sqlite') {
       await queryInterface.sequelize.query('DELETE FROM sqlite_sequence WHERE name="Spots"');
     }
+    // //! Delete existing SpotImages to prevent duplicates
+    // await queryInterface.bulkDelete('Spots', {}, options);
 
-    //! Delete existing SpotImages to prevent duplicates
-    await queryInterface.bulkDelete('Spots', {}, options);
-
-
-    await queryInterface.bulkInsert("Spots", [
+    options.tableName = "Spots";
+    await queryInterface.bulkInsert(options, [
       {
         ownerId: 1,
         address: '123 Mickey Mouse Ln',
@@ -148,11 +147,11 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       }
-    ]);
+    ], {});
   },
 
   async down(queryInterface, Sequelize) {
     options.tableName = "Spots";  // Keep options for schema support
-    return queryInterface.bulkDelete("Spots", {}, options);  // Returning the promise
+    return queryInterface.bulkDelete(options, {}, {});  // Returning the promise
   }
 };

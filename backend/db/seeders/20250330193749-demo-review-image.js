@@ -30,7 +30,7 @@ module.exports = {
         reviewId: 3,
         url: 'https://example.com/review-image5.jpg',
       },
-    ]);
+    ], {});
   },
 
   async down(queryInterface, Sequelize) {

@@ -52,7 +52,7 @@ router.use('/users', usersRouter);                     // Mount users router at 
 //   }
 // );
 
-// // GET /api/require-auth
+// GET /api/require-auth
 // const { requireAuth } = require('../../utils/auth.js');
 // router.get(
 //   '/require-auth',

@@ -9,11 +9,15 @@ const { ValidationError } = require("sequelize");  //! Import Sequelize's Valida
 
 const { environment } = require('./config');        // Import environment configuration
 const isProduction = environment === 'production';  // Check if we're in production
+const { restoreUser, requireAuth } = require('./utils/auth');  // Assuming auth middleware for JWT
+
+// Initialize the app
+const app = express();                              // Create Express application at top and before app.use(routes)
+
 //! ROUTES VARIABLE MOVED/REPOSITIONED TO BOTTOM
 // const routes = require('./routes');                 // Import routes
-
-
-const app = express();                              // Create Express application
+// app.use(routes); // 
+// app.use('/api', routes); // Make sure '/api' prefix is being used correctly for your routes
 
 // Connect morgan middleware for logging HTTP requests
 app.use(morgan('dev'));

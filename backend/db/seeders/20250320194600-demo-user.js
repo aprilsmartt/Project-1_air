@@ -54,7 +54,7 @@ module.exports = {
     //! 3 Arguments used: bulkDelete(tableName, whereCondition, options)
     return queryInterface.bulkDelete("Users", {
       username: { [Op.in]: ['Demo-lition', 'FakeUser1', 'FakeUser2'] }  // Delete specific users
-    }, options);
+    }, {});
 
     // //! Will delete all records from table (deletes all rows)
     // options.tableName = "Users";  // Keep options for schema support

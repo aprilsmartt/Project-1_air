@@ -34,6 +34,6 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {
     options.tableName = "Bookings";  // Keep options for schema support
-    return queryInterface.bulkDelete("Bookings", {}, options);  // Returning the promise
+    return queryInterface.bulkDelete(options, {}, {});  // Returning the promise
   }
 };

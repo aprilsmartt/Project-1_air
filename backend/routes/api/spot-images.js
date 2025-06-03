@@ -1,7 +1,18 @@
-const router = require('express').Router();     // Create a new Express router instance
-const sessionRouter = require('./session.js');         // Import session router
-const usersRouter = require('./users.js');             // Import users router
-const { restoreUser } = require("../../utils/auth.js");  // Import auth middleware
+'use strict';
+
+// External libraries
+const express = require('express');          // Import Express
+
+// Internal Utilities
+const sessionRouter = require('./session');  // Import the sessionRouter
+const usersRouter = require('./users');      // Import the usersRouter
+const { requireAuth, restoreUser } = require('../../utils/auth');
+const { handleValidationErrors } = require('../../utils/validation');  // Validation handler
+
+// Models
+const { Spot, SpotImage } = require('../../db/models');
+
+const router = express.Router();             // Create a router instance
 
 // Connect restoreUser middleware to the API router
 // If current user session is valid, set req.user to the user in the database
@@ -16,8 +27,6 @@ router.use('/users', usersRouter);                     // Mount users router at 
 router.post('/test', (req, res) => {                   // Test route (can be removed later)
   res.json({ requestBody: req.body });
 });
-
-
 
 // //! Test POST route
 // // Test route to check if API router is working
@@ -39,27 +48,7 @@ router.post('/test', (req, res) => {                   // Test route (can be rem
 //   return res.json({ user: user });                // Return the user in the response
 // });
 
-// // GET /api/restore-user
-// const { restoreUser } = require('../../utils/auth.js');
 
-// router.use(restoreUser);                          // Apply restoreUser middleware to all routes
 
-// router.get(
-//   '/restore-user',
-//   (req, res) => {
-//     return res.json(req.user);                    // Return the current user from the request
-//   }
-// );
-
-// // GET /api/require-auth
-// const { requireAuth } = require('../../utils/auth.js');
-// router.get(
-//   '/require-auth',
-//   requireAuth,                                    // Apply requireAuth middleware to this route
-//   (req, res) => {
-//     return res.json(req.user);                    // Return the authenticated user
-//   }
-// );
-  
 
 module.exports = router;                        // Export the router for use in other files

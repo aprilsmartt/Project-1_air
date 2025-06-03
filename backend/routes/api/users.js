@@ -37,13 +37,31 @@ const validateSignup = [
   handleValidationErrors                               // Process validation results
 ];
 
-// Sign up // !added validateSignup to router.post
-router.post('/', validateSignup, async (req, res) => {           // POST /api/users endpoint
-  //! added firstName, lastName throught
+// Sign Up a User
+router.post('/', validateSignup, async (req, res) => {
+  //! added firstName, lastName throughout
   const { email, password, username, firstName, lastName } = req.body;  // Extract user data
 
-  // Hash the password
-  const hashedPassword = bcrypt.hashSync(password);  // Create secure hash
+  try {
+          const errors = {};
+
+    // Manually check for existing email and username
+    const existingEmail = await User.findOne({ where: { email } });
+    const existingUsername = await User.findOne({ where: { username } });
+
+    if (existingEmail) errors.email = 'User with that email already exists';
+    if (existingUsername) errors.username = 'User with that username already exists';
+
+    // If errors found, return them
+    if (Object.keys(errors).length > 0) {
+      return res.status(500).json({
+        message: 'User already exists',
+        errors
+      });
+    }
+
+    // Hash the password
+    const hashedPassword = bcrypt.hashSync(password);  // Create secure hash
 
   // Create a new user
   const user = await User.create({ email, username, hashedPassword, firstName, lastName });  // Save to DB
@@ -60,10 +78,14 @@ router.post('/', validateSignup, async (req, res) => {           // POST /api/us
   // Set the JWT cookie
   await setTokenCookie(res, safeUser);           // Login the new user automatically
 
-  // Return the user information
-  return res.json({
-    user: safeUser                              // Return user data
-  });
+    // Return the user information
+    return res.status(201).json({ user: safeUser });
+
+
+  } catch (err) {
+    // Pass any other errors to the default error handler
+    return next(err);
+  }
 });
 
 

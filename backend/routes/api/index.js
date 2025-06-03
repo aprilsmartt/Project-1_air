@@ -13,14 +13,13 @@ const reviewImagesRouter = require('./review-images.js'); // Handles image uploa
 //! Auth middleware to restore user session from token
 const { restoreUser } = require("../../utils/auth.js");
 
-
 //! Connect restoreUser middleware to the API router
 // If current user session is valid, set req.user to the user in the database
 // If current user session is not valid, set req.user to null
 router.use(restoreUser);
 
 //! Add middleware to connect to "session" and "users" routers
-//! Mounted Routers at /api/...
+//! Mounted API Routers at /api/...
 router.use('/session', sessionRouter);                 // Mount session router at /api/session
 router.use('/users', usersRouter);                     // Mount users router at /api/users
 router.use('/spots', spotsRouter)
@@ -69,7 +68,7 @@ router.use('/review-images', reviewImagesRouter)
 //   }
 // );
 
-// // GET /api/require-auth
+// GET /api/require-auth
 // const { requireAuth } = require('../../utils/auth.js');
 // router.get(
 //   '/require-auth',

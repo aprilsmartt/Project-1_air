@@ -11,16 +11,16 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Review.belongsTo(models.Spot, {
-        foreignKey: "spotId",
-        as: "spot", //! Alias for Spot association,
-        unique: 'unique_review_per_spot' //! Prevent multiple reviews for the same spot
-      });
-
       Review.belongsTo(models.User, {
         foreignKey: "userId",
         as: "user", //! Alias for User association,
         unique: 'unique_review_per_user' //! Prevent multiple reviews from the same user
+      });
+
+      Review.belongsTo(models.Spot, {
+        foreignKey: "spotId",
+        as: "spot", //! Alias for Spot association,
+        unique: 'unique_review_per_spot' //! Prevent multiple reviews for the same spot
       });
 
       Review.hasMany(models.ReviewImage, {

@@ -84,22 +84,32 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DECIMAL(9, 6),
         allowNull: false,
         validate: {
-          isDecimal: true,
-          min: -90,
-          max: 90,
-          msg: 'Latitude must be within -90 and 90',
-        },
+          isDecimal: { msg: 'Latitude must be a decimal value' },
+          min: {
+            args: -90,
+            msg: 'Latitude must be greater than or equal to -90'
+          },
+          max: {
+            args: 90,
+            msg: 'Latitude must be less than or equal to 90'
+          }
+        }
       },
       //! Must be between -180 (West) and 180 (East)
       lng: {
         type: DataTypes.DECIMAL(10, 7),
         allowNull: false,
         validate: {
-          isDecimal: true,
-          min: -180,
-          max: 180,
-          msg: 'Longitude must be within -180 and 180',
-        },
+          isDecimal: { msg: 'Longitude must be a decimal value' },
+          min: {
+            args: -180,
+            msg: 'Longitude must be greater than or equal to -180'
+          },
+          max: {
+            args: 180,
+            msg: 'Longitude must be less than or equal to 180'
+          }
+        }
       },
       name: {
         type: DataTypes.STRING,

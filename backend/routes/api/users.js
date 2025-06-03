@@ -42,12 +42,29 @@ const validateSignup = [
   handleValidationErrors                          // Handle validation errors
 ];
 
-//Sign Up a User
+// Sign Up a User
 router.post('/', validateSignup, async (req, res) => {
   //! added firstName, lastName throughout
   const { email, password, username, firstName, lastName } = req.body;  // Extract user data
 
   try {
+          const errors = {};
+
+    // Manually check for existing email and username
+    const existingEmail = await User.findOne({ where: { email } });
+    const existingUsername = await User.findOne({ where: { username } });
+
+    if (existingEmail) errors.email = 'User with that email already exists';
+    if (existingUsername) errors.username = 'User with that username already exists';
+
+    // If errors found, return them
+    if (Object.keys(errors).length > 0) {
+      return res.status(500).json({
+        message: 'User already exists',
+        errors
+      });
+    }
+
     // Hash the password
     const hashedPassword = bcrypt.hashSync(password);  // Create secure hash
 
@@ -69,24 +86,8 @@ router.post('/', validateSignup, async (req, res) => {
     // Return the user information
     return res.status(201).json({ user: safeUser });
 
+
   } catch (err) {
-    if (err instanceof UniqueConstraintError) {
-      const errors = {};
-
-      err.errors.forEach(e => {
-        if (e.path === 'email') {
-          errors.email = 'User with that email already exists';
-        }
-        if (e.path === 'username') {
-          errors.username = 'User with that username already exists';
-        }
-      });
-
-      return res.status(500).json({
-        message: 'User already exists',
-        errors
-      });
-    }
     // Pass any other errors to the default error handler
     return next(err);
   }

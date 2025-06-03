@@ -23,7 +23,8 @@ const validateLogin = [                                           // Create arra
   handleValidationErrors                                         // Process validation results
 ];
 
-// Log in // !added validateLogin to router.post
+// Log in =====================================================================================
+// !added validateLogin to router.post
 router.post('/', validateLogin, async (req, res, next) => {   // POST /api/session endpoint
   const { credential, password } = req.body;   // Extract credentials from request body
 
@@ -51,15 +52,14 @@ router.post('/', validateLogin, async (req, res, next) => {   // POST /api/sessi
   //   "message": "Invalid credentials"
   // }
 
-
   //! Create a safe user object (without hashedPassword)
   //! added firstName and lastName
   const safeUser = {
     id: user.id,
+    firstName: user.firstName,
+    lastName: user.lastName,
     email: user.email,
     username: user.username,
-    firstName: user.firstName,
-    lastName: user.lastName
   };
 
   //! Set the JWT cookie
@@ -80,16 +80,16 @@ router.delete('/', (_req, res) => {            // DELETE /api/session endpoint
 
 // Restore session user
 router.get('/', (req, res) => {                 // GET /api/session endpoint
-  const { user } = req;                         // Get user from request object
+  const { user } = req;                         // Get user from GLOBAL request object
   if (user) {
-    const safeUser = {                          // Create safe user object
-      //! added firstName and lastName
+      safeUser = {
       id: user.id,
-      email: user.email,
-      username: user.username,
       firstName: user.firstName,
-      lastName: user.lastName
+      lastName: user.lastName,
+      email: user.email,
+      username: user.username
     };
+
     return res.json({
       user: safeUser                           // Return user data if logged in
     });
@@ -98,3 +98,7 @@ router.get('/', (req, res) => {                 // GET /api/session endpoint
 
 
 module.exports = router;                     // Export the router for use in other files
+
+
+
+//! TEMP HOLD

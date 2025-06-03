@@ -6,7 +6,7 @@ import Navigation from '../src/components/Navigation/Navigation';
 // import Banner from '../src/components/Banner/Banner';
 import HomePage from '../src/components/HomePage/HomePage';
 import Footer from '../src/components/Footer/Footer';
-import SpotsListPage from './pages/SpotPage/SpotsListPage';
+import SpotsListPage from './components/Spots/SpotsListPage';
 // import SpotsList from './components/Spots/SpotsList';
 // import SpotCard from '../src/components/Spots/SpotCard'
 import SpotDetails from './components/Spots/SpotDetails';

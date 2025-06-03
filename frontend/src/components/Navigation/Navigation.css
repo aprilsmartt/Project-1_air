@@ -1,5 +1,6 @@
 .navbar {
-    /* position: sticky; */
+    position: relative;
+    z-index: 2001;
     /* top: 0; */
     /* when using sticky for navbar, must set top to 0; */
     display: flex;

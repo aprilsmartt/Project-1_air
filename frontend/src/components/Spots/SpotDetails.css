@@ -79,3 +79,16 @@
   object-fit: cover; /* cover fills and crops to container */
   background-color: black; /* fallback background */
 }
+
+hr {
+  height: 2px; /* thickness */
+  background-color: gray; /* color of the line */
+  border: none; /* remove default border */
+  margin: 20px 0; /* optional spacing */
+}
+
+button {
+  text: 16px;
+  padding: 0 15px;
+  height: 30px;
+}

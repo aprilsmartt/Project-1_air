@@ -1,0 +1,9 @@
+node_modules/
+.env
+build
+.DS_Store
+*.db 
+
+//  OTHER FOLDERS and FILES TO IGNORE
+00-NOTES
+backend/DO NOT NEED_models_root-db
